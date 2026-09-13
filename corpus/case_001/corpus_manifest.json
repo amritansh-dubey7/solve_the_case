@@ -1,0 +1,128 @@
+[
+  {
+    "document_id": "doc_001",
+    "type": "police_report",
+    "timestamp": "1889-06-03T15:45:00",
+    "verified": true,
+    "source": "Constable H. Figgins, Herefordshire Constabulary — Initial Response Report"
+  },
+  {
+    "document_id": "doc_002",
+    "type": "witness_statement",
+    "timestamp": "1889-06-03T16:30:00",
+    "verified": true,
+    "source": "Patience Moran (lodge-keeper's daughter) — interviewed by Constable Figgins"
+  },
+  {
+    "document_id": "doc_003",
+    "type": "witness_statement",
+    "timestamp": "1889-06-03T17:00:00",
+    "verified": true,
+    "source": "William Crowder (gamekeeper) — interviewed by Constable Figgins"
+  },
+  {
+    "document_id": "doc_004",
+    "type": "testimony",
+    "timestamp": "1889-06-10T10:00:00",
+    "verified": true,
+    "source": "Coroner's Inquest, Ross-on-Wye — sworn testimony of James McCarthy"
+  },
+  {
+    "document_id": "doc_005",
+    "type": "forensic_report",
+    "timestamp": "1889-06-05T00:00:00",
+    "verified": true,
+    "source": "District Medical Examiner — Surgeon's Report on the Body of Charles McCarthy"
+  },
+  {
+    "document_id": "doc_006",
+    "type": "physical_evidence_report",
+    "timestamp": "1889-06-05T09:00:00",
+    "verified": true,
+    "source": "Sherlock Holmes, site examination at Boscombe Pool, witnessed by Constable Figgins"
+  },
+  {
+    "document_id": "doc_007",
+    "type": "newspaper_clipping",
+    "timestamp": "1889-06-06T00:00:00",
+    "verified": false,
+    "source": "The Ross and Hereford Times, unsigned staff correspondent"
+  },
+  {
+    "document_id": "doc_008",
+    "type": "anonymous_tip",
+    "timestamp": "1889-06-11T00:00:00",
+    "verified": false,
+    "source": "Anonymous letter received by Ross Constabulary, unsigned, postmarked Ross-on-Wye"
+  },
+  {
+    "document_id": "doc_009",
+    "type": "correspondence",
+    "timestamp": "1889-06-03T09:00:00",
+    "verified": true,
+    "source": "Draft letter, Charles McCarthy to John Turner, recovered from Hatherley Farm"
+  },
+  {
+    "document_id": "doc_010",
+    "type": "correspondence",
+    "timestamp": "1889-05-10T00:00:00",
+    "verified": true,
+    "source": "Unsent letter fragment, John Turner, recovered from Boscombe Valley estate house"
+  },
+  {
+    "document_id": "doc_011",
+    "type": "diary_entry",
+    "timestamp": "1889-05-15T21:00:00",
+    "verified": true,
+    "source": "Personal diary of Alice Turner, shown voluntarily to Mr. Holmes"
+  },
+  {
+    "document_id": "doc_012",
+    "type": "witness_statement",
+    "timestamp": "1889-06-04T00:00:00",
+    "verified": true,
+    "source": "Dr. Willoughby Anstruther, physician to John Turner — interviewed by Constable Figgins"
+  },
+  {
+    "document_id": "doc_013",
+    "type": "testimony",
+    "timestamp": "1889-06-09T00:00:00",
+    "verified": true,
+    "source": "Confidential statement of John Turner, taken privately by Sherlock Holmes, witnessed by Dr. Watson"
+  },
+  {
+    "document_id": "doc_014",
+    "type": "physical_evidence_report",
+    "timestamp": "1889-06-04T00:00:00",
+    "verified": true,
+    "source": "Constabulary Exhibit Report, James McCarthy's gun, examined with a Ross gunsmith"
+  },
+  {
+    "document_id": "doc_015",
+    "type": "witness_statement",
+    "timestamp": "1889-06-05T00:00:00",
+    "verified": true,
+    "source": "Mrs. Hannah Laxton, proprietress of the Hereford Arms public house — interviewed by Constable Figgins"
+  },
+  {
+    "document_id": "doc_016",
+    "type": "physical_evidence_report",
+    "timestamp": "1889-06-05T09:30:00",
+    "verified": true,
+    "source": "Exhibit catalogue, Constable Figgins, cross-referenced to doc_006"
+  },
+  {
+    "document_id": "doc_017",
+    "type": "archival_record",
+    "timestamp": "1867-04-01T00:00:00",
+    "verified": true,
+    "source": "The Ballarat Courier (Australia), old cutting recovered from a locked drawer at the Boscombe Valley estate house"
+  },
+  {
+    "document_id": "doc_018",
+    "type": "anonymous_tip",
+    "timestamp": "1889-06-04T00:00:00",
+    "verified": false,
+    "source": "Village hearsay, relayed second-hand to Constable Figgins by a Hatherley Farm labourer"
+  }
+]

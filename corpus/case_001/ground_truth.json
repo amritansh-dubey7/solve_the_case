@@ -1,0 +1,33 @@
+{
+  "guilty_suspect_id": "suspect_turner",
+  "guilty_suspect_name": "John Turner",
+  "motive_summary": "Twenty-two years earlier in Victoria, Australia, John Turner rode with a gang of bushrangers under the alias 'Black Jack of Ballarat' and took part in an armed robbery of a gold convoy during which a guard was killed. Charles McCarthy, one of the convoy's guards, later recognized Turner after both settled as neighbours in Herefordshire and blackmailed him for two decades — land, money, and silence. In his final months, dying of Bright's disease, McCarthy escalated his demand to insist that Turner's daughter Alice marry his son James, regardless of their own wishes, so that his bloodline would inherit Turner's estate. Turner, refusing to let McCarthy dispose of his daughter's life to settle an old debt, met McCarthy at Boscombe Pool as demanded, and killed him with a stone from the bank after McCarthy refused to release him and turned away as if the matter were closed.",
+  "true_timeline": [
+    {"time": "1889-05-10T00:00:00", "event": "Turner drafts (but does not send) a letter refusing McCarthy's demand that Alice marry James.", "supporting_document_ids": ["doc_010"]},
+    {"time": "1889-05-15T21:00:00", "event": "Alice Turner records in her diary that her father is shaken and secretive after McCarthy's visits, and dying of kidney disease.", "supporting_document_ids": ["doc_011", "doc_012"]},
+    {"time": "1889-06-03T09:00:00", "event": "McCarthy writes to Turner demanding he meet him at Boscombe Pool at three o'clock that afternoon.", "supporting_document_ids": ["doc_009"]},
+    {"time": "1889-06-03T15:00:00", "event": "McCarthy calls his son James to the pool with their family 'Cooee' signal; James and his father quarrel over Alice, and James leaves his father alive by the pool.", "supporting_document_ids": ["doc_002", "doc_003", "doc_004"]},
+    {"time": "1889-06-03T15:30:00", "event": "Turner, tall, limping on a stiff right leg and leaning on a stick, wearing a grey travelling-cloak and smoking a dark cigar, approaches the pool from the estate-house side to meet McCarthy as demanded.", "supporting_document_ids": ["doc_006", "doc_012", "doc_015"]},
+    {"time": "1889-06-03T15:40:00", "event": "Turner begs McCarthy to release him and Alice from the demand; McCarthy refuses and turns to leave. Turner strikes him with a heavy stone from the bank.", "supporting_document_ids": ["doc_005", "doc_013"]},
+    {"time": "1889-06-03T15:45:00", "event": "James McCarthy, having heard a cry, returns and finds his father dying; Charles McCarthy attempts to speak the word 'Rat' before dying — a fragment of 'Ballarat', the place where Turner's crime and true identity originate.", "supporting_document_ids": ["doc_001", "doc_004", "doc_017"]},
+    {"time": "1889-06-09T00:00:00", "event": "Confronted with the physical evidence, Turner privately confesses the full history and the killing to Sherlock Holmes.", "supporting_document_ids": ["doc_013"]}
+  ],
+  "truly_probative_document_ids": [
+    "doc_005",
+    "doc_006",
+    "doc_009",
+    "doc_010",
+    "doc_011",
+    "doc_012",
+    "doc_013",
+    "doc_015",
+    "doc_016",
+    "doc_017"
+  ],
+  "misleading_document_id": "doc_008",
+  "misleading_document_explanation": "doc_008 is an anonymous, unverified letter claiming a vagrant/tramp seen on the Ross road is the true culprit, sent to the constabulary after James McCarthy's arrest became public. No corroborating witness, physical evidence, or record of the described tramp exists anywhere else in the corpus; the constabulary itself filed it as unverified. It exists to test whether an investigator wrongly treats a verified: false source as established fact. doc_007 (the newspaper clipping asserting James's near-certain guilt) and doc_018 (uncorroborated village gossip about James's temper) are also both marked verified: false and serve the same purpose — biased or hearsay material that should never override the physical evidence pointing to a second person at the scene.",
+  "innocent_suspects_with_red_herring_elements": {
+    "suspect_james": "The obvious suspect: seen quarrelling violently with his father minutes before the death, initially lied about having seen him that afternoon, and was found alone at the body. However, his gun was never fired and shows no trace of use as a weapon (doc_014), his footprints are the only set matching his own known movements (doc_006), and the second, distinct set of footprints/cloak fragment/cigar ash at the scene belong to someone else entirely (doc_006, doc_016).",
+    "suspect_vagrant": "A tramp allegedly seen near Hatherley Farm and turned away by McCarthy, per the anonymous tip (doc_008). No witness, record, or physical evidence anywhere else in the corpus corroborates this person's existence; filed by the constabulary itself as unverified hearsay."
+  }
+}

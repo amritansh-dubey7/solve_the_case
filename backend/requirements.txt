@@ -1,0 +1,10 @@
+fastapi
+pydantic
+uvicorn
+python-dotenv
+networkx
+rank_bm25
+sentence-transformers
+numpy
+anthropic
+requests
