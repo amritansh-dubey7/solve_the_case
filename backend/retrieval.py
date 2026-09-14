@@ -3,8 +3,9 @@ Hybrid retrieval layer for "Solve the Case".
 
 Combines:
   - lexical_search: BM25 (rank_bm25) over paragraph-level chunks
-  - semantic_search: sentence-transformers "all-MiniLM-L6-v2" embeddings +
-    cosine similarity, computed with plain numpy (no vector DB)
+  - semantic_search: fastembed "BAAI/bge-small-en-v1.5" embeddings (ONNX
+    runtime, no torch) + cosine similarity, computed with plain numpy
+    (no vector DB)
   - hybrid_search: fuses both rankings via Reciprocal Rank Fusion (RRF)
 
 All three functions return the same output shape: a list of dicts with
@@ -15,23 +16,30 @@ Citation-shaped fields (document_id, claim/text snippet, verified).
 Chunking reuses ingestion.load_manifest / ingestion.load_document_text /
 ingestion.chunk_document exactly as built in Phase 2 — this file does not
 redefine or duplicate that logic.
+
+Note on the embedding backend: this originally used sentence-transformers
+(torch-based). Swapped to fastembed (ONNX runtime, ~100MB, no torch) so the
+service fits comfortably inside a 512MB free-tier deployment — the torch
+build alone pushed memory usage over that limit on Render's free plan.
+Output shape and behavior (normalized embeddings, cosine similarity via
+dot product) are unchanged.
 """
 
 import re
 
 import numpy as np
+from fastembed import TextEmbedding
 from rank_bm25 import BM25Okapi
-from sentence_transformers import SentenceTransformer
 
 from ingestion import chunk_document, load_document_text, load_manifest
 
-_EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
+_EMBEDDING_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
 # Module-level caches so the corpus is only chunked, tokenized, and embedded
 # once per process (not once per request). Populated lazily on first use.
 _chunks: list[dict] | None = None
 _bm25_index: BM25Okapi | None = None
-_embedding_model: SentenceTransformer | None = None
+_embedding_model: TextEmbedding | None = None
 _chunk_embeddings: np.ndarray | None = None
 
 
@@ -81,12 +89,23 @@ def _get_bm25_index() -> BM25Okapi:
     return _bm25_index
 
 
-def _get_embedding_model() -> SentenceTransformer:
-    """Load (once) and return the sentence-transformers embedding model."""
+def _get_embedding_model() -> TextEmbedding:
+    """Load (once) and return the fastembed (ONNX) embedding model."""
     global _embedding_model
     if _embedding_model is None:
-        _embedding_model = SentenceTransformer(_EMBEDDING_MODEL_NAME)
+        _embedding_model = TextEmbedding(model_name=_EMBEDDING_MODEL_NAME)
     return _embedding_model
+
+
+def _embed(model: TextEmbedding, texts: list[str]) -> np.ndarray:
+    """Run fastembed over a batch of texts and stack results into an array.
+
+    fastembed's .embed() returns a generator of 1D numpy arrays — this
+    materializes it into a single 2D array, matching the shape
+    sentence-transformers' .encode(..., convert_to_numpy=True) used to
+    return, so callers below are unchanged.
+    """
+    return np.array(list(model.embed(texts)))
 
 
 def _get_chunk_embeddings() -> np.ndarray:
@@ -97,7 +116,7 @@ def _get_chunk_embeddings() -> np.ndarray:
 
     chunks = _load_chunks()
     model = _get_embedding_model()
-    embeddings = model.encode([c["text"] for c in chunks], convert_to_numpy=True)
+    embeddings = _embed(model, [c["text"] for c in chunks])
     norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
     norms[norms == 0] = 1.0  # avoid division by zero for a degenerate chunk
     _chunk_embeddings = embeddings / norms
@@ -144,7 +163,7 @@ def semantic_search(query: str, k: int) -> list[dict]:
     model = _get_embedding_model()
     chunk_embeddings = _get_chunk_embeddings()
 
-    query_embedding = model.encode([query], convert_to_numpy=True)[0]
+    query_embedding = _embed(model, [query])[0]
     query_norm = np.linalg.norm(query_embedding)
     if query_norm > 0:
         query_embedding = query_embedding / query_norm

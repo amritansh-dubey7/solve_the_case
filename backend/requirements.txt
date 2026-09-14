@@ -4,7 +4,7 @@ uvicorn
 python-dotenv
 networkx
 rank_bm25
-sentence-transformers
+fastembed
 numpy
 anthropic
 requests
