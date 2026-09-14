@@ -291,7 +291,6 @@ def interrogate(request: InterrogateRequest) -> InterrogateResponse:
         if r["document_id"] in retrieved_document_ids
     ]
 
-    print(reply)
 
     return InterrogateResponse(
         session_id=session_id,
