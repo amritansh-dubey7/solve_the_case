@@ -134,12 +134,14 @@ def _call_groq(system_prompt: str, user_content: str, max_tokens: int) -> str | 
     """
     Call a Groq-hosted model and return the final text response.
 
-    Retries with backoff on 429 (rate limit) responses — Groq's free tier
-    has a low tokens-per-minute limit, and a corpus ingestion run makes many
-    calls back-to-back, so a plain single-attempt call fails most of the
-    time under that limit. Groq's error body includes the actual wait time
-    to retry after; this uses that when present, falling back to a fixed
-    backoff schedule otherwise.
+    Retries with backoff on 429 (rate limit) responses — but capped hard:
+    a single interactive request (interrogate, investigate, etc.) must not
+    block long enough for Render's own proxy to kill it as unresponsive,
+    which shows up to the frontend as a bare connection failure (looks like
+    a CORS error, but isn't one) rather than a clean error response. So
+    this caps both the number of retries and the wait per retry — better
+    to fail fast and return None (caller already handles that gracefully)
+    than to hang past the platform's timeout.
     """
     import re
     import time
@@ -148,7 +150,8 @@ def _call_groq(system_prompt: str, user_content: str, max_tokens: int) -> str | 
         logger.warning("GROQ_API_KEY not set — skipping LLM call.")
         return None
 
-    max_retries = 4
+    max_retries = 2
+    max_wait_seconds = 8.0
     response = None
 
     for attempt in range(max_retries + 1):
@@ -191,7 +194,7 @@ def _call_groq(system_prompt: str, user_content: str, max_tokens: int) -> str | 
         except requests.exceptions.HTTPError as e:
             is_rate_limit = response is not None and response.status_code == 429
             if is_rate_limit and attempt < max_retries:
-                wait_seconds = 5.0 * (attempt + 1)  # fallback fixed backoff
+                wait_seconds = 3.0 * (attempt + 1)  # fallback fixed backoff
                 try:
                     body = response.json()
                     match = re.search(
@@ -201,6 +204,7 @@ def _call_groq(system_prompt: str, user_content: str, max_tokens: int) -> str | 
                         wait_seconds = float(match.group(1)) + 0.5
                 except Exception:
                     pass
+                wait_seconds = min(wait_seconds, max_wait_seconds)
                 logger.warning(
                     "Groq rate-limited (attempt %d/%d), waiting %.1fs before retry",
                     attempt + 1, max_retries, wait_seconds,
@@ -491,7 +495,7 @@ def call_llm_extract(text: str) -> dict:
     if not text.strip():
         return {"entities": [], "relationships": []}
 
-    parsed = _call_claude_json(_EXTRACTION_SYSTEM_PROMPT, text, max_tokens=1024)
+    parsed = _call_claude_json(_EXTRACTION_SYSTEM_PROMPT, text, max_tokens=400)
     if parsed is None:
         return {"entities": [], "relationships": []}
 
