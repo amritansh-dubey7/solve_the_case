@@ -133,63 +133,92 @@ def _call_anthropic(system_prompt: str, user_content: str, max_tokens: int) -> s
 def _call_groq(system_prompt: str, user_content: str, max_tokens: int) -> str | None:
     """
     Call a Groq-hosted model and return the final text response.
+
+    Retries with backoff on 429 (rate limit) responses — Groq's free tier
+    has a low tokens-per-minute limit, and a corpus ingestion run makes many
+    calls back-to-back, so a plain single-attempt call fails most of the
+    time under that limit. Groq's error body includes the actual wait time
+    to retry after; this uses that when present, falling back to a fixed
+    backoff schedule otherwise.
     """
+    import re
+    import time
 
     if not GROQ_API_KEY:
         logger.warning("GROQ_API_KEY not set — skipping LLM call.")
         return None
 
-    try:
-        response = requests.post(
-            GROQ_URL,
-            headers={
-                "Authorization": f"Bearer {GROQ_API_KEY}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": GROQ_MODEL,
+    max_retries = 4
+    response = None
 
-                "max_completion_tokens": max_tokens,
+    for attempt in range(max_retries + 1):
+        try:
+            response = requests.post(
+                GROQ_URL,
+                headers={
+                    "Authorization": f"Bearer {GROQ_API_KEY}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": GROQ_MODEL,
 
-                # Disable unnecessary reasoning for these structured tasks
-                "reasoning_effort": "none",
+                    "max_completion_tokens": max_tokens,
 
-                # Make sure reasoning is NOT mixed into message content
-                "reasoning_format": "hidden",
+                    # Disable unnecessary reasoning for these structured tasks
+                    "reasoning_effort": "none",
 
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": system_prompt,
-                    },
-                    {
-                        "role": "user",
-                        "content": user_content,
-                    },
-                ],
-            },
-            timeout=30,
-        )
+                    # Make sure reasoning is NOT mixed into message content
+                    "reasoning_format": "hidden",
 
-        response.raise_for_status()
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": system_prompt,
+                        },
+                        {
+                            "role": "user",
+                            "content": user_content,
+                        },
+                    ],
+                },
+                timeout=30,
+            )
 
-        data = response.json()
+            response.raise_for_status()
+            data = response.json()
+            return data["choices"][0]["message"]["content"]
 
-        return data["choices"][0]["message"]["content"]
+        except requests.exceptions.HTTPError as e:
+            is_rate_limit = response is not None and response.status_code == 429
+            if is_rate_limit and attempt < max_retries:
+                wait_seconds = 5.0 * (attempt + 1)  # fallback fixed backoff
+                try:
+                    body = response.json()
+                    match = re.search(
+                        r"try again in ([\d.]+)s", body["error"]["message"]
+                    )
+                    if match:
+                        wait_seconds = float(match.group(1)) + 0.5
+                except Exception:
+                    pass
+                logger.warning(
+                    "Groq rate-limited (attempt %d/%d), waiting %.1fs before retry",
+                    attempt + 1, max_retries, wait_seconds,
+                )
+                time.sleep(wait_seconds)
+                continue
+            logger.warning(
+                "Groq API call failed: %s | Response: %s",
+                e,
+                response.text if response is not None else "No response",
+            )
+            return None
 
-    except requests.exceptions.HTTPError as e:
-        logger.warning(
-            "Groq API call failed: %s | Response: %s",
-            e,
-            response.text if response is not None else "No response",
-        )
-        return None
+        except Exception as e:
+            logger.warning("Groq API call failed: %s", e)
+            return None
 
-    except Exception as e:
-        logger.warning("Groq API call failed: %s", e)
-        return None
-    
-        
+    return None
 
 
 def _call_llm_json(system_prompt: str, user_content: str, max_tokens: int = 1024) -> dict | None:

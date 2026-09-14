@@ -65,16 +65,21 @@ def extract_entities_and_relationships(
     Run the LLM extraction stub over every chunk of a document and collect
     the resulting Entity / Relationship objects.
 
-    Since llm_client.call_llm_extract is currently a stub (placeholder, no
-    real API call), this will currently collect empty results. The
-    interface here is intentionally already wired up so that swapping in a
-    real implementation of call_llm_extract later requires no changes to
-    ingestion.py.
+    Since ingestion makes one LLM call per chunk across every document in
+    the corpus, a small delay between calls is added below to stay under
+    free-tier provider rate limits (Groq's free tier in particular has a
+    low tokens-per-minute cap) — without it, most calls in a full ingestion
+    run get rate-limited and silently return empty results (see
+    llm_client._call_groq's retry/backoff for the other half of this fix).
     """
+    import time
+
     entities: dict[str, Entity] = {}
     relationships: list[Relationship] = []
 
-    for chunk in chunks:
+    for i, chunk in enumerate(chunks):
+        if i > 0:
+            time.sleep(1.5)
         result = call_llm_extract(chunk)
 
         for raw_entity in result.get("entities", []):
