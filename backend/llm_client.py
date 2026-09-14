@@ -495,7 +495,7 @@ def call_llm_extract(text: str) -> dict:
     if not text.strip():
         return {"entities": [], "relationships": []}
 
-    parsed = _call_claude_json(_EXTRACTION_SYSTEM_PROMPT, text, max_tokens=400)
+    parsed = _call_claude_json(_EXTRACTION_SYSTEM_PROMPT, text, max_tokens=700)
     if parsed is None:
         return {"entities": [], "relationships": []}
 

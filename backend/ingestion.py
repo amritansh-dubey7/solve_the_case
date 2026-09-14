@@ -47,14 +47,26 @@ def load_document_text(document_id: str) -> str:
 
 def chunk_document(text: str) -> list[str]:
     """
-    Chunk a document's text at the paragraph level.
+    Chunk a document's text at the paragraph level, merged in small groups.
 
-    Paragraphs are split on blank lines. Empty/whitespace-only chunks are
-    dropped. This is intentionally simple (no overlap, no token-based
-    splitting) per the fixed spec's "keep it small and clean" rule.
+    Paragraphs are split on blank lines, then merged 2-at-a-time into each
+    returned chunk. This cuts the number of LLM extraction calls roughly
+    2x versus one call per paragraph, which matters under a free-tier
+    per-minute token budget (see llm_client._call_groq's retry/backoff) —
+    fewer, slightly larger calls finish an ingestion run faster than many
+    tiny ones. Kept at 2 (not larger) so each chunk's expected extraction
+    output still comfortably fits the model's max_tokens without getting
+    truncated mid-JSON. Empty/whitespace-only paragraphs are dropped
+    before grouping.
     """
     raw_paragraphs = text.split("\n\n")
-    chunks = [p.strip() for p in raw_paragraphs if p.strip()]
+    paragraphs = [p.strip() for p in raw_paragraphs if p.strip()]
+
+    group_size = 2
+    chunks = [
+        "\n\n".join(paragraphs[i : i + group_size])
+        for i in range(0, len(paragraphs), group_size)
+    ]
     return chunks
 
 
@@ -79,7 +91,7 @@ def extract_entities_and_relationships(
 
     for i, chunk in enumerate(chunks):
         if i > 0:
-            time.sleep(1.5)
+            time.sleep(3.0)
         result = call_llm_extract(chunk)
 
         for raw_entity in result.get("entities", []):
