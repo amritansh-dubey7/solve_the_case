@@ -300,6 +300,7 @@ def interrogate(request: InterrogateRequest) -> InterrogateResponse:
         if r["document_id"] in retrieved_document_ids
     ]
 
+
     return InterrogateResponse(
         session_id=session_id,
         suspect_id=request.suspect_id,
