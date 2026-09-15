@@ -52,6 +52,96 @@ GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 GROQ_MODEL = os.environ.get("GROQ_MODEL", "qwen/qwen3.6-27b")
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
+# Groq's on-demand tier caps *output* tokens per minute (OTPM). The 429s
+# you see are this limit, not requests-per-minute. We throttle ourselves
+# below the advertised ceiling so requests are spaced out instead of being
+# fired off and rejected.
+GROQ_OTPM_LIMIT = int(os.environ.get("GROQ_OTPM_LIMIT", "1000"))
+# Leave headroom: our reservation is based on max_tokens, but the true cost
+# is whatever the model actually emits, and the server's window won't line
+# up exactly with ours.
+GROQ_OTPM_SAFETY = float(os.environ.get("GROQ_OTPM_SAFETY", "0.85"))
+
+
+class _OutputTokenLimiter:
+    """
+    Sliding-window limiter over output tokens, shared by every Groq call in
+    this process.
+
+    reserve(n) blocks until sending a request that could emit up to n output
+    tokens keeps us under the per-minute budget. The lock is held for the
+    whole reserve-and-send cycle by the caller, which also serializes
+    requests — two concurrent calls each asking for 600 tokens is exactly
+    what blows a 1000-token budget.
+    """
+
+    def __init__(self, limit: int, window_seconds: float = 60.0):
+        import threading
+
+        self.budget = max(1.0, limit * GROQ_OTPM_SAFETY)
+        self.window = window_seconds
+        self.lock = threading.Lock()
+        self._spent: list[tuple[float, int]] = []  # (timestamp, tokens)
+
+    def _prune(self, now: float) -> None:
+        cutoff = now - self.window
+        self._spent = [(t, n) for (t, n) in self._spent if t > cutoff]
+
+    def reserve(self, tokens: int, max_wait: float | None = None) -> bool:
+        """
+        Block until `tokens` fit in the budget, then reserve them.
+
+        max_wait caps how long this call is willing to sleep in total. If
+        the wait would exceed it, give up and return False without
+        reserving anything — the caller can then send the request anyway
+        (accepting 429 risk) rather than making an interactive user wait
+        behind a slow background job's ingestion calls. Returns True once
+        reserved.
+        """
+        import time
+
+        # A single request larger than the whole budget can never fit; let it
+        # through and let the server's own 429 handling deal with it.
+        tokens = min(tokens, int(self.budget))
+        waited = 0.0
+
+        while True:
+            now = time.monotonic()
+            self._prune(now)
+            used = sum(n for (_, n) in self._spent)
+            if used + tokens <= self.budget or not self._spent:
+                self._spent.append((now, tokens))
+                return True
+            oldest = self._spent[0][0]
+            sleep_for = max(0.1, (oldest + self.window) - now)
+            if max_wait is not None and waited + sleep_for > max_wait:
+                logger.info(
+                    "Groq budget full (%d/%d output tokens in window) — "
+                    "%.1fs wait exceeds this call's %.1fs budget, sending "
+                    "anyway (accepting 429 risk) rather than blocking.",
+                    used, int(self.budget), sleep_for, max_wait,
+                )
+                return False
+            logger.info(
+                "Groq budget full (%d/%d output tokens in window) — "
+                "waiting %.1fs before sending.",
+                used, int(self.budget), sleep_for,
+            )
+            time.sleep(sleep_for)
+            waited += sleep_for
+
+    def refund(self, tokens: int, actual: int) -> None:
+        """After a call, swap the max_tokens reservation for what was really
+        emitted, so an over-estimate doesn't starve later calls."""
+        tokens = min(tokens, int(self.budget))
+        for i in range(len(self._spent) - 1, -1, -1):
+            if self._spent[i][1] == tokens:
+                self._spent[i] = (self._spent[i][0], min(actual, tokens))
+                return
+
+
+_groq_limiter = _OutputTokenLimiter(GROQ_OTPM_LIMIT)
+
 # Kept for backwards compatibility with any code that still imports this name.
 EXTRACTION_MODEL = ANTHROPIC_MODEL
 
@@ -130,7 +220,9 @@ def _call_anthropic(system_prompt: str, user_content: str, max_tokens: int) -> s
         return None
 
 
-def _call_groq(system_prompt: str, user_content: str, max_tokens: int) -> str | None:
+def _call_groq(
+    system_prompt: str, user_content: str, max_tokens: int, max_wait: float | None = None
+) -> str | None:
     """
     Call a Groq-hosted model and return the final text response.
 
@@ -151,85 +243,134 @@ def _call_groq(system_prompt: str, user_content: str, max_tokens: int) -> str | 
         return None
 
     max_retries = 2
-    max_wait_seconds = 8.0
+    # Total time this call may spend sleeping across all retries. Bounded so
+    # an interactive request can't outlive the platform's proxy timeout, but
+    # no longer clamped per-retry — clamping to 8s made every retry fail
+    # whenever Groq asked us to wait longer than that.
+    wait_budget = float(os.environ.get("GROQ_MAX_WAIT_SECONDS", "25"))
     response = None
 
-    for attempt in range(max_retries + 1):
-        try:
-            response = requests.post(
-                GROQ_URL,
-                headers={
-                    "Authorization": f"Bearer {GROQ_API_KEY}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": GROQ_MODEL,
+    # One in-flight Groq request at a time, process-wide. Concurrent calls
+    # are what push us over OTPM in the first place.
+    with _groq_limiter.lock:
+        for attempt in range(max_retries + 1):
+            try:
+                _groq_limiter.reserve(max_tokens, max_wait=max_wait)
+                response = requests.post(
+                    GROQ_URL,
+                    headers={
+                        "Authorization": f"Bearer {GROQ_API_KEY}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": GROQ_MODEL,
 
-                    "max_completion_tokens": max_tokens,
+                        "max_completion_tokens": max_tokens,
 
-                    # Disable unnecessary reasoning for these structured tasks
-                    "reasoning_effort": "none",
+                        # Disable unnecessary reasoning for these structured tasks
+                        "reasoning_effort": "none",
 
-                    # Make sure reasoning is NOT mixed into message content
-                    "reasoning_format": "hidden",
+                        # Make sure reasoning is NOT mixed into message content
+                        "reasoning_format": "hidden",
 
-                    "messages": [
-                        {
-                            "role": "system",
-                            "content": system_prompt,
-                        },
-                        {
-                            "role": "user",
-                            "content": user_content,
-                        },
-                    ],
-                },
-                timeout=30,
-            )
-
-            response.raise_for_status()
-            data = response.json()
-            return data["choices"][0]["message"]["content"]
-
-        except requests.exceptions.HTTPError as e:
-            is_rate_limit = response is not None and response.status_code == 429
-            if is_rate_limit and attempt < max_retries:
-                wait_seconds = 3.0 * (attempt + 1)  # fallback fixed backoff
-                try:
-                    body = response.json()
-                    match = re.search(
-                        r"try again in ([\d.]+)s", body["error"]["message"]
-                    )
-                    if match:
-                        wait_seconds = float(match.group(1)) + 0.5
-                except Exception:
-                    pass
-                wait_seconds = min(wait_seconds, max_wait_seconds)
-                logger.warning(
-                    "Groq rate-limited (attempt %d/%d), waiting %.1fs before retry",
-                    attempt + 1, max_retries, wait_seconds,
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": system_prompt,
+                            },
+                            {
+                                "role": "user",
+                                "content": user_content,
+                            },
+                        ],
+                    },
+                    timeout=30,
                 )
-                time.sleep(wait_seconds)
-                continue
-            logger.warning(
-                "Groq API call failed: %s | Response: %s",
-                e,
-                response.text if response is not None else "No response",
-            )
-            return None
 
-        except Exception as e:
-            logger.warning("Groq API call failed: %s", e)
-            return None
+                response.raise_for_status()
+                data = response.json()
+                # Replace the max_tokens reservation with the real cost so an
+                # over-estimate doesn't needlessly stall the next call.
+                actual = (data.get("usage") or {}).get("completion_tokens")
+                if isinstance(actual, int):
+                    _groq_limiter.refund(max_tokens, actual)
+                choice = data["choices"][0]
+                if choice.get("finish_reason") == "length":
+                    # Cut off mid-output, not malformed — a json.loads
+                    # failure on this text is expected. Bump the budget
+                    # once and retry rather than returning broken JSON.
+                    if attempt < max_retries:
+                        max_tokens = int(max_tokens * 1.5)
+                        logger.warning(
+                            "Groq response truncated (finish_reason=length) "
+                            "— retrying with max_tokens=%d",
+                            max_tokens,
+                        )
+                        continue
+                    logger.warning(
+                        "Groq response truncated (finish_reason=length) and "
+                        "out of retries — returning None instead of broken "
+                        "JSON."
+                    )
+                    return None
+                return choice["message"]["content"]
+
+            except requests.exceptions.HTTPError as e:
+                is_rate_limit = response is not None and response.status_code == 429
+                if is_rate_limit and attempt < max_retries:
+                    wait_seconds = 3.0 * (attempt + 1)  # fallback fixed backoff
+                    try:
+                        body = response.json()
+                        match = re.search(
+                            r"try again in ([\d.]+)s", body["error"]["message"]
+                        )
+                        if match:
+                            wait_seconds = float(match.group(1)) + 0.5
+                    except Exception:
+                        pass
+                    # Honour what the server asked for, spending from a shared
+                    # budget rather than truncating each individual wait.
+                    if wait_seconds > wait_budget:
+                        logger.warning(
+                            "Groq asked us to wait %.1fs but only %.1fs of wait "
+                            "budget remains — giving up on this call.",
+                            wait_seconds, wait_budget,
+                        )
+                        return None
+                    wait_budget -= wait_seconds
+                    logger.warning(
+                        "Groq rate-limited (attempt %d/%d), waiting %.1fs before retry",
+                        attempt + 1, max_retries, wait_seconds,
+                    )
+                    time.sleep(wait_seconds)
+                    continue
+                logger.warning(
+                    "Groq API call failed: %s | Response: %s",
+                    e,
+                    response.text if response is not None else "No response",
+                )
+                return None
+
+            except Exception as e:
+                logger.warning("Groq API call failed: %s", e)
+                return None
 
     return None
 
 
-def _call_llm_json(system_prompt: str, user_content: str, max_tokens: int = 1024) -> dict | None:
+def _call_llm_json(
+    system_prompt: str, user_content: str, max_tokens: int = 1024, max_wait: float | None = None
+) -> dict | None:
     """
     Shared helper: call whichever provider LLM_PROVIDER selects with a
     system prompt that demands a bare JSON object back, strip stray code
     fences, and json.loads it.
+
+    max_wait: for interactive callers (e.g. interrogation) that would
+    rather risk a 429 than sit behind a slow background job's budget —
+    caps how long this call will wait for OTPM budget to free up.
+    Background/batch callers (extraction, theory, judge) should leave this
+    unset so they queue patiently instead of erroring.
 
     Returns the parsed dict, or None if the API call failed or the response
     wasn't valid JSON. Callers are responsible for validating/using the
@@ -237,7 +378,7 @@ def _call_llm_json(system_prompt: str, user_content: str, max_tokens: int = 1024
     common to every LLM call in this file.
     """
     if LLM_PROVIDER == "groq":
-        raw_text = _call_groq(system_prompt, user_content, max_tokens)
+        raw_text = _call_groq(system_prompt, user_content, max_tokens, max_wait=max_wait)
     elif LLM_PROVIDER == "anthropic":
         raw_text = _call_anthropic(system_prompt, user_content, max_tokens)
     else:
@@ -388,7 +529,7 @@ def call_llm_judge_evidence(
         f"NEWLY RETRIEVED CANDIDATES:\n{candidates_text if candidates_text else '(none)'}\n"
     )
 
-    parsed = _call_claude_json(_JUDGE_SYSTEM_PROMPT, user_content, max_tokens=1024)
+    parsed = _call_claude_json(_JUDGE_SYSTEM_PROMPT, user_content, max_tokens=768)
     if not parsed:
         return None
     if not all(k in parsed for k in ("tagged", "sufficient", "missing_categories", "next_query")):
@@ -460,7 +601,12 @@ def call_llm_interrogate(
         f"DETECTIVE'S LATEST MESSAGE: {user_message}\n"
     )
 
-    parsed = _call_claude_json(_PERSONA_SYSTEM_PROMPT, user_content, max_tokens=400)
+    # Interactive endpoint — don't make the detective sit behind a slow
+    # background ingestion job's token budget. Wait briefly for room, then
+    # send anyway and accept the (rare) 429 risk rather than stall the chat.
+    parsed = _call_claude_json(
+        _PERSONA_SYSTEM_PROMPT, user_content, max_tokens=300, max_wait=5.0
+    )
     if not parsed:
         return None
     if "reply" not in parsed:
