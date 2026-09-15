@@ -32,18 +32,20 @@ export default function CaseIntro({ candidates, setCandidates }) {
     api
       .getManifest()
       .then((manifest) => {
+        // corpus_manifest.json is document metadata (document_id, type,
+        // timestamp, verified, source) — it was never going to contain a
+        // suspect/candidate list. This is expected, not a fetch failure,
+        // so it must not be reported as "manifest unreachable".
         const list = (manifest.documents || manifest.candidates || [])
           .filter((d) => d.type === 'suspect' || d.role)
           .map((d) => ({ id: d.entity_id || d.document_id, name: d.name, role: d.role || d.type }))
-        if (list.length) {
-          setSummary({ title: manifest.title || 'The Case', synopsis: manifest.synopsis || manifest.summary || '' })
-          setCandidates(list)
-          setStatus('manifest')
-        } else {
-          throw new Error('manifest had no candidate list')
-        }
+        setSummary(FALLBACK_SUMMARY)
+        setCandidates(list.length ? list : FALLBACK_SUMMARY.candidates)
+        setStatus('manifest') // the fetch succeeded — no warning badge
       })
       .catch(() => {
+        // The fetch itself failed (network error, 404, backend down) —
+        // this is the only case that should warn the user.
         setSummary(FALLBACK_SUMMARY)
         setCandidates(FALLBACK_SUMMARY.candidates)
         setStatus('fallback')
@@ -57,7 +59,7 @@ export default function CaseIntro({ candidates, setCandidates }) {
     <section>
       <div className="section-title">
         <span>The Brief</span>
-        {status === 'fallback' && <span className="stamp-small">manifest unreachable — using summary</span>}
+        {status === 'fallback' && <span className="stamp-small">backend unreachable — showing offline copy</span>}
       </div>
 
       {summary ? (
