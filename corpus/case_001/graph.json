@@ -1,1 +1,1592 @@
-{"nodes": [], "links": []}
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "name": "Herefordshire Constabulary",
+      "type": "organization",
+      "aliases": [],
+      "id": "herefordshire_constabulary"
+    },
+    {
+      "name": "Charles McCarthy",
+      "type": "person",
+      "aliases": [
+        "tenant farmer of Hatherley Farm",
+        "deceased"
+      ],
+      "id": "charles_mccarthy"
+    },
+    {
+      "name": "Boscombe Pool",
+      "type": "location",
+      "aliases": [
+        "small lake"
+      ],
+      "id": "boscombe_pool"
+    },
+    {
+      "name": "Boscombe Valley",
+      "type": "location",
+      "aliases": [],
+      "id": "boscombe_valley"
+    },
+    {
+      "name": "H. Figgins",
+      "type": "person",
+      "aliases": [
+        "Constable H. Figgins",
+        "Reporting Officer"
+      ],
+      "id": "constable_h_figgins"
+    },
+    {
+      "name": "Ross Division",
+      "type": "organization",
+      "aliases": [],
+      "id": "ross_division"
+    },
+    {
+      "name": "Hatherley/Boscombe Valley estate",
+      "type": "location",
+      "aliases": [],
+      "id": "hatherley_boscombe_valley_estate"
+    },
+    {
+      "name": "John Cobb",
+      "type": "person",
+      "aliases": [
+        "Mr. John Cobb",
+        "laborer"
+      ],
+      "id": "john_cobb"
+    },
+    {
+      "name": "Hatherley Farm",
+      "type": "location",
+      "aliases": [
+        "estate"
+      ],
+      "id": "hatherley_farm"
+    },
+    {
+      "name": "heavy stone",
+      "type": "object",
+      "aliases": [],
+      "id": "heavy_stone"
+    },
+    {
+      "name": "James McCarthy",
+      "type": "person",
+      "aliases": [
+        "the deceased's son"
+      ],
+      "id": "james_mccarthy"
+    },
+    {
+      "name": "William Crowder",
+      "type": "person",
+      "aliases": [
+        "gamekeeper on the estate"
+      ],
+      "id": "william_crowder"
+    },
+    {
+      "name": "Mrs. Moran",
+      "type": "person",
+      "aliases": [
+        "wife of the lodge-keeper"
+      ],
+      "id": "mrs_moran"
+    },
+    {
+      "name": "double-barrelled gun",
+      "type": "object",
+      "aliases": [
+        "gun"
+      ],
+      "id": "double_barrelled_gun"
+    },
+    {
+      "name": "Patience Moran",
+      "type": "person",
+      "aliases": [],
+      "id": "patience_moran"
+    },
+    {
+      "name": "Boscombe Valley estate",
+      "type": "location",
+      "aliases": [],
+      "id": "boscombe_valley_estate"
+    },
+    {
+      "name": "Boscombe Wood",
+      "type": "location",
+      "aliases": [],
+      "id": "boscombe_wood"
+    },
+    {
+      "name": "pool",
+      "type": "location",
+      "aliases": [],
+      "id": "the_pool"
+    },
+    {
+      "name": "John Turner",
+      "type": "person",
+      "aliases": [
+        "Mr. John Turner"
+      ],
+      "id": "john_turner"
+    },
+    {
+      "name": "H. Figgins",
+      "type": "person",
+      "aliases": [
+        "Constable H. Figgins"
+      ],
+      "id": "h_figgins"
+    },
+    {
+      "name": "Charles McCarthy's son",
+      "type": "person",
+      "aliases": [
+        "his son"
+      ],
+      "id": "charles_mccarthy_son"
+    },
+    {
+      "name": "Bristol",
+      "type": "location",
+      "aliases": [],
+      "id": "bristol"
+    },
+    {
+      "name": "father",
+      "type": "person",
+      "aliases": [],
+      "id": "james_mccarthy_father"
+    },
+    {
+      "name": "gun",
+      "type": "object",
+      "aliases": [],
+      "id": "gun"
+    },
+    {
+      "name": "rabbit warren",
+      "type": "location",
+      "aliases": [],
+      "id": "rabbit_warren"
+    },
+    {
+      "name": "I",
+      "type": "person",
+      "aliases": [],
+      "id": "narrator"
+    },
+    {
+      "name": "my father",
+      "type": "person",
+      "aliases": [
+        "he"
+      ],
+      "id": "narrator_father"
+    },
+    {
+      "name": "Miss Alice Turner",
+      "type": "person",
+      "aliases": [],
+      "id": "alice_turner"
+    },
+    {
+      "name": "pool",
+      "type": "location",
+      "aliases": [],
+      "id": "pool"
+    },
+    {
+      "name": "district medical examiner",
+      "type": "organization",
+      "aliases": [],
+      "id": "district_medical_examiner"
+    },
+    {
+      "name": "coroner",
+      "type": "organization",
+      "aliases": [],
+      "id": "coroner"
+    },
+    {
+      "name": "SURGEON'S REPORT ON THE BODY OF CHARLES MCCARTHY",
+      "type": "object",
+      "aliases": [],
+      "id": "surgeon_s_report"
+    },
+    {
+      "name": "the deceased",
+      "type": "person",
+      "aliases": [],
+      "id": "the_deceased"
+    },
+    {
+      "name": "Mr. Sherlock Holmes",
+      "type": "person",
+      "aliases": [],
+      "id": "sherlock_holmes"
+    },
+    {
+      "name": "Inspector Lestrade",
+      "type": "person",
+      "aliases": [],
+      "id": "lesdade"
+    },
+    {
+      "name": "Constable Figgins",
+      "type": "person",
+      "aliases": [],
+      "id": "constable_figgins"
+    },
+    {
+      "name": "Physical Evidence Report",
+      "type": "document",
+      "aliases": [],
+      "id": "physical_evidence_report"
+    },
+    {
+      "name": "warren",
+      "type": "location",
+      "aliases": [],
+      "id": "warren"
+    },
+    {
+      "name": "Boscombe Valley estate house",
+      "type": "location",
+      "aliases": [],
+      "id": "boscombe_valley_estate_house"
+    },
+    {
+      "name": "farm",
+      "type": "location",
+      "aliases": [],
+      "id": "farm"
+    },
+    {
+      "name": "second, separate set of footprints",
+      "type": "object",
+      "aliases": [
+        "prints"
+      ],
+      "id": "second_set_of_footprints"
+    },
+    {
+      "name": "unknown person",
+      "type": "person",
+      "aliases": [
+        "person with limp"
+      ],
+      "id": "unknown_person_with_limp"
+    },
+    {
+      "name": "walking-stick",
+      "type": "object",
+      "aliases": [
+        "cane"
+      ],
+      "id": "walking_stick"
+    },
+    {
+      "name": "James McCarthy's footprints",
+      "type": "object",
+      "aliases": [],
+      "id": "james_mccarthy_footprints"
+    },
+    {
+      "name": "small round punctures",
+      "type": "object",
+      "aliases": [],
+      "id": "punctures"
+    },
+    {
+      "name": "grey stone",
+      "type": "object",
+      "aliases": [
+        "weapon"
+      ],
+      "id": "grey_stone"
+    },
+    {
+      "name": "torn grey cloak fragment",
+      "type": "object",
+      "aliases": [],
+      "id": "torn_grey_cloak_fragment"
+    },
+    {
+      "name": "cigar ash",
+      "type": "object",
+      "aliases": [],
+      "id": "cigar_ash"
+    },
+    {
+      "name": "second person",
+      "type": "person",
+      "aliases": [
+        "tall person",
+        "person with limp",
+        "person using a stick",
+        "person wearing grey cloak",
+        "person smoking dark cigars"
+      ],
+      "id": "unknown_suspect"
+    },
+    {
+      "name": "pool",
+      "type": "location",
+      "aliases": [
+        "water"
+      ],
+      "id": "pool_location"
+    },
+    {
+      "name": "Ross Constabulary",
+      "type": "organization",
+      "aliases": [],
+      "id": "ross_constabulary"
+    },
+    {
+      "name": "Ross-on-Wye",
+      "type": "location",
+      "aliases": [],
+      "id": "ross_on_wye"
+    },
+    {
+      "name": "the tramp",
+      "type": "person",
+      "aliases": [
+        "rough fellow",
+        "murderer"
+      ],
+      "id": "tramp"
+    },
+    {
+      "name": "Ross road",
+      "type": "location",
+      "aliases": [],
+      "id": "ross_road"
+    },
+    {
+      "name": "McCarthy",
+      "type": "person",
+      "aliases": [],
+      "id": "mccarthy"
+    },
+    {
+      "name": "the son",
+      "type": "person",
+      "aliases": [],
+      "id": "the_son"
+    },
+    {
+      "name": "C. McC.",
+      "type": "person",
+      "aliases": [],
+      "id": "c_mcc"
+    },
+    {
+      "name": "Recipient",
+      "type": "person",
+      "aliases": [
+        "you"
+      ],
+      "id": "recipient"
+    },
+    {
+      "name": "the boy",
+      "type": "person",
+      "aliases": [],
+      "id": "the_boy"
+    },
+    {
+      "name": "the girl",
+      "type": "person",
+      "aliases": [],
+      "id": "the_girl"
+    },
+    {
+      "name": "Alice",
+      "type": "person",
+      "aliases": [],
+      "id": "alice"
+    },
+    {
+      "name": "Mr. Holmes",
+      "type": "person",
+      "aliases": [],
+      "id": "mr_holmes"
+    },
+    {
+      "name": "Father",
+      "type": "person",
+      "aliases": [],
+      "id": "alice_turner_father"
+    },
+    {
+      "name": "Mr. McCarthy",
+      "type": "person",
+      "aliases": [],
+      "id": "mr_mccarthy"
+    },
+    {
+      "name": "half the valley",
+      "type": "location",
+      "aliases": [],
+      "id": "half_the_valley"
+    },
+    {
+      "name": "Hatherley",
+      "type": "location",
+      "aliases": [],
+      "id": "hatherley"
+    },
+    {
+      "name": "Dr. Willoughby Anstruther",
+      "type": "person",
+      "aliases": [
+        "physician"
+      ],
+      "id": "dr_willoughby_anstruther"
+    },
+    {
+      "name": "Mr. John Turner",
+      "type": "person",
+      "aliases": [
+        "patient"
+      ],
+      "id": "mr_john_turner"
+    },
+    {
+      "name": "his surgery",
+      "type": "location",
+      "aliases": [],
+      "id": "anstruther_surgery"
+    },
+    {
+      "name": "Ross",
+      "type": "location",
+      "aliases": [],
+      "id": "ross"
+    },
+    {
+      "name": "Bright's disease",
+      "type": "object",
+      "aliases": [
+        "progressive kidney complaint"
+      ],
+      "id": "brights_disease"
+    },
+    {
+      "name": "right leg",
+      "type": "object",
+      "aliases": [],
+      "id": "right_leg"
+    },
+    {
+      "name": "hip",
+      "type": "object",
+      "aliases": [],
+      "id": "hip"
+    },
+    {
+      "name": "stout stick",
+      "type": "object",
+      "aliases": [],
+      "id": "stout_stick"
+    },
+    {
+      "name": "Dr. Watson",
+      "type": "person",
+      "aliases": [],
+      "id": "dr_watson"
+    },
+    {
+      "name": "Turner estate house",
+      "type": "location",
+      "aliases": [],
+      "id": "turner_estate_house"
+    },
+    {
+      "name": "constabulary",
+      "type": "organization",
+      "aliases": [],
+      "id": "constabulary"
+    },
+    {
+      "name": "CONFIDENTIAL STATEMENT",
+      "type": "document",
+      "aliases": [],
+      "id": "confidential_statement"
+    },
+    {
+      "name": "inquest",
+      "type": "event",
+      "aliases": [],
+      "id": "inquest"
+    },
+    {
+      "name": "Him",
+      "type": "person",
+      "aliases": [
+        "he",
+        "him"
+      ],
+      "id": "victim"
+    },
+    {
+      "name": "surgeon",
+      "type": "person",
+      "aliases": [],
+      "id": "surgeon"
+    },
+    {
+      "name": "gunsmith",
+      "type": "person",
+      "aliases": [],
+      "id": "gunsmith"
+    },
+    {
+      "name": "wounds",
+      "type": "object",
+      "aliases": [],
+      "id": "wounds"
+    },
+    {
+      "name": "surgeon's report",
+      "type": "object",
+      "aliases": [
+        "doc_005"
+      ],
+      "id": "surgeons_report"
+    },
+    {
+      "name": "I",
+      "type": "person",
+      "aliases": [
+        "kitchen worker"
+      ],
+      "id": "speaker"
+    },
+    {
+      "name": "him",
+      "type": "person",
+      "aliases": [
+        "the death"
+      ],
+      "id": "deceased"
+    },
+    {
+      "name": "the village",
+      "type": "location",
+      "aliases": [],
+      "id": "village"
+    },
+    {
+      "name": "the road",
+      "type": "location",
+      "aliases": [],
+      "id": "road"
+    },
+    {
+      "name": "fragment of heavy grey woollen cloth",
+      "type": "object",
+      "aliases": [
+        "torn cloak fragment"
+      ],
+      "id": "torn_cloak_fragment"
+    },
+    {
+      "name": "physical evidence report doc_006",
+      "type": "object",
+      "aliases": [
+        "doc_006"
+      ],
+      "id": "physical_evidence_report_006"
+    },
+    {
+      "name": "wealthy owner",
+      "type": "person",
+      "aliases": [],
+      "id": "anonymous_wealthy_owner"
+    }
+  ],
+  "edges": [
+    {
+      "relation": "body_found_at",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "charles_mccarthy",
+      "target": "boscombe_pool",
+      "key": 0
+    },
+    {
+      "relation": "was_at",
+      "document_id": "doc_003",
+      "verified": true,
+      "source": "charles_mccarthy",
+      "target": "boscombe_pool",
+      "key": 1
+    },
+    {
+      "relation": "worked_for",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "charles_mccarthy",
+      "target": "hatherley_farm",
+      "key": 0
+    },
+    {
+      "relation": "resided_at",
+      "document_id": "doc_009",
+      "verified": true,
+      "source": "charles_mccarthy",
+      "target": "hatherley_farm",
+      "key": 1
+    },
+    {
+      "relation": "father_of",
+      "document_id": "doc_002",
+      "verified": true,
+      "source": "charles_mccarthy",
+      "target": "james_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "father_of",
+      "document_id": "doc_003",
+      "verified": true,
+      "source": "charles_mccarthy",
+      "target": "charles_mccarthy_son",
+      "key": 0
+    },
+    {
+      "relation": "wrote_letter_to",
+      "document_id": "doc_009",
+      "verified": true,
+      "source": "charles_mccarthy",
+      "target": "john_turner",
+      "key": 0
+    },
+    {
+      "relation": "located_in",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "boscombe_pool",
+      "target": "hatherley_boscombe_valley_estate",
+      "key": 0
+    },
+    {
+      "relation": "employed_by",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "constable_h_figgins",
+      "target": "herefordshire_constabulary",
+      "key": 0
+    },
+    {
+      "relation": "affiliated_with",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "constable_h_figgins",
+      "target": "ross_division",
+      "key": 0
+    },
+    {
+      "relation": "summoned",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "john_cobb",
+      "target": "constable_h_figgins",
+      "key": 0
+    },
+    {
+      "relation": "found_body_of",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "john_cobb",
+      "target": "charles_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "son_of",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "james_mccarthy",
+      "target": "charles_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "quarreled_with",
+      "document_id": "doc_002",
+      "verified": true,
+      "source": "james_mccarthy",
+      "target": "charles_mccarthy",
+      "key": 1
+    },
+    {
+      "relation": "carrying",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "james_mccarthy",
+      "target": "double_barrelled_gun",
+      "key": 0
+    },
+    {
+      "relation": "was_at",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "james_mccarthy",
+      "target": "bristol",
+      "key": 0
+    },
+    {
+      "relation": "son_of",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "james_mccarthy",
+      "target": "james_mccarthy_father",
+      "key": 0
+    },
+    {
+      "relation": "took",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "james_mccarthy",
+      "target": "gun",
+      "key": 0
+    },
+    {
+      "relation": "went_to",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "james_mccarthy",
+      "target": "rabbit_warren",
+      "key": 0
+    },
+    {
+      "relation": "son_of_implicating_relationship_context",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "james_mccarthy",
+      "target": "victim",
+      "key": 0
+    },
+    {
+      "relation": "found",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "william_crowder",
+      "target": "james_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "works_for",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "william_crowder",
+      "target": "hatherley_farm",
+      "key": 0
+    },
+    {
+      "relation": "works_at",
+      "document_id": "doc_003",
+      "verified": true,
+      "source": "william_crowder",
+      "target": "boscombe_valley_estate",
+      "key": 0
+    },
+    {
+      "relation": "employed_by",
+      "document_id": "doc_003",
+      "verified": true,
+      "source": "william_crowder",
+      "target": "john_turner",
+      "key": 0
+    },
+    {
+      "relation": "located_near",
+      "document_id": "doc_003",
+      "verified": true,
+      "source": "william_crowder",
+      "target": "boscombe_pool",
+      "key": 0
+    },
+    {
+      "relation": "identified_voice_of",
+      "document_id": "doc_003",
+      "verified": true,
+      "source": "william_crowder",
+      "target": "charles_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "found",
+      "document_id": "doc_001",
+      "verified": true,
+      "source": "mrs_moran",
+      "target": "james_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "parent_works_at",
+      "document_id": "doc_002",
+      "verified": true,
+      "source": "patience_moran",
+      "target": "boscombe_valley_estate",
+      "key": 0
+    },
+    {
+      "relation": "statement_taken_by",
+      "document_id": "doc_002",
+      "verified": true,
+      "source": "patience_moran",
+      "target": "constable_h_figgins",
+      "key": 0
+    },
+    {
+      "relation": "located_near",
+      "document_id": "doc_002",
+      "verified": true,
+      "source": "patience_moran",
+      "target": "boscombe_wood",
+      "key": 0
+    },
+    {
+      "relation": "witnessed",
+      "document_id": "doc_002",
+      "verified": true,
+      "source": "patience_moran",
+      "target": "james_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "witnessed",
+      "document_id": "doc_002",
+      "verified": true,
+      "source": "patience_moran",
+      "target": "charles_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "found_document_at",
+      "document_id": "doc_010",
+      "verified": true,
+      "source": "john_turner",
+      "target": "boscombe_valley_estate_house",
+      "key": 0
+    },
+    {
+      "relation": "owes_money_to",
+      "document_id": "doc_010",
+      "verified": true,
+      "source": "john_turner",
+      "target": "mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "parent_of",
+      "document_id": "doc_010",
+      "verified": true,
+      "source": "john_turner",
+      "target": "alice",
+      "key": 0
+    },
+    {
+      "relation": "interviewed",
+      "document_id": "doc_003",
+      "verified": true,
+      "source": "h_figgins",
+      "target": "william_crowder",
+      "key": 0
+    },
+    {
+      "relation": "near",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "rabbit_warren",
+      "target": "boscombe_pool",
+      "key": 0
+    },
+    {
+      "relation": "attached_to",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "narrator",
+      "target": "alice_turner",
+      "key": 0
+    },
+    {
+      "relation": "visited",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "narrator",
+      "target": "narrator_father",
+      "key": 0
+    },
+    {
+      "relation": "found_wounded",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "narrator",
+      "target": "narrator_father",
+      "key": 1
+    },
+    {
+      "relation": "owns",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "narrator",
+      "target": "gun",
+      "key": 0
+    },
+    {
+      "relation": "met",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "narrator",
+      "target": "victim",
+      "key": 0
+    },
+    {
+      "relation": "begged_to_release",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "narrator",
+      "target": "victim",
+      "key": 1
+    },
+    {
+      "relation": "struck_with",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "narrator",
+      "target": "victim",
+      "key": 2
+    },
+    {
+      "relation": "left_behind",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "narrator",
+      "target": "victim",
+      "key": 3
+    },
+    {
+      "relation": "begged_to_release",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "narrator",
+      "target": "alice",
+      "key": 0
+    },
+    {
+      "relation": "used_as_weapon",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "narrator",
+      "target": "heavy_stone",
+      "key": 0
+    },
+    {
+      "relation": "dropped",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "narrator",
+      "target": "heavy_stone",
+      "key": 1
+    },
+    {
+      "relation": "confessed_to",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "narrator",
+      "target": "mr_holmes",
+      "key": 0
+    },
+    {
+      "relation": "requests_sparing_of",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "narrator",
+      "target": "james_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "parent_of",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "narrator_father",
+      "target": "narrator",
+      "key": 0
+    },
+    {
+      "relation": "died",
+      "document_id": "doc_004",
+      "verified": true,
+      "source": "narrator_father",
+      "target": "narrator_father",
+      "key": 0
+    },
+    {
+      "relation": "showed_diary_to",
+      "document_id": "doc_011",
+      "verified": true,
+      "source": "alice_turner",
+      "target": "mr_holmes",
+      "key": 0
+    },
+    {
+      "relation": "is_daughter_of",
+      "document_id": "doc_011",
+      "verified": true,
+      "source": "alice_turner",
+      "target": "alice_turner_father",
+      "key": 0
+    },
+    {
+      "relation": "location_of_death",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "pool",
+      "target": "victim",
+      "key": 0
+    },
+    {
+      "relation": "prepared_for",
+      "document_id": "doc_005",
+      "verified": true,
+      "source": "district_medical_examiner",
+      "target": "coroner",
+      "key": 0
+    },
+    {
+      "relation": "prepared_by",
+      "document_id": "doc_005",
+      "verified": true,
+      "source": "surgeon_s_report",
+      "target": "district_medical_examiner",
+      "key": 0
+    },
+    {
+      "relation": "examines",
+      "document_id": "doc_005",
+      "verified": true,
+      "source": "surgeon_s_report",
+      "target": "charles_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "awaiting_outcome_of",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "sherlock_holmes",
+      "target": "inquest",
+      "key": 0
+    },
+    {
+      "relation": "interviewed",
+      "document_id": "doc_012",
+      "verified": true,
+      "source": "constable_figgins",
+      "target": "dr_willoughby_anstruther",
+      "key": 0
+    },
+    {
+      "relation": "catalogued",
+      "document_id": "doc_016",
+      "verified": true,
+      "source": "constable_figgins",
+      "target": "torn_cloak_fragment",
+      "key": 0
+    },
+    {
+      "relation": "concerns",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "physical_evidence_report",
+      "target": "boscombe_pool",
+      "key": 0
+    },
+    {
+      "relation": "authored_by",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "physical_evidence_report",
+      "target": "sherlock_holmes",
+      "key": 0
+    },
+    {
+      "relation": "requested_by",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "physical_evidence_report",
+      "target": "lesdade",
+      "key": 0
+    },
+    {
+      "relation": "found_near",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "second_set_of_footprints",
+      "target": "pool",
+      "key": 0
+    },
+    {
+      "relation": "oriented_toward",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "second_set_of_footprints",
+      "target": "boscombe_valley_estate_house",
+      "key": 0
+    },
+    {
+      "relation": "left_by",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "second_set_of_footprints",
+      "target": "unknown_person_with_limp",
+      "key": 0
+    },
+    {
+      "relation": "uses",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "unknown_person_with_limp",
+      "target": "walking_stick",
+      "key": 0
+    },
+    {
+      "relation": "found_near",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "james_mccarthy_footprints",
+      "target": "pool",
+      "key": 0
+    },
+    {
+      "relation": "oriented_toward",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "james_mccarthy_footprints",
+      "target": "warren",
+      "key": 0
+    },
+    {
+      "relation": "consistent_with_use_of",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "punctures",
+      "target": "walking_stick",
+      "key": 0
+    },
+    {
+      "relation": "found_alongside",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "punctures",
+      "target": "second_set_of_footprints",
+      "key": 0
+    },
+    {
+      "relation": "found_near",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "grey_stone",
+      "target": "pool_location",
+      "key": 0
+    },
+    {
+      "relation": "suspected_weapon_of",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "grey_stone",
+      "target": "unknown_suspect",
+      "key": 0
+    },
+    {
+      "relation": "linked_to",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "torn_grey_cloak_fragment",
+      "target": "unknown_suspect",
+      "key": 0
+    },
+    {
+      "relation": "linked_to",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "cigar_ash",
+      "target": "unknown_suspect",
+      "key": 0
+    },
+    {
+      "relation": "present_at",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "unknown_suspect",
+      "target": "pool_location",
+      "key": 0
+    },
+    {
+      "relation": "distinct_from",
+      "document_id": "doc_006",
+      "verified": true,
+      "source": "unknown_suspect",
+      "target": "james_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "investigating",
+      "document_id": "doc_008",
+      "verified": false,
+      "source": "ross_constabulary",
+      "target": "tramp",
+      "key": 0
+    },
+    {
+      "relation": "seen_begging_at",
+      "document_id": "doc_008",
+      "verified": false,
+      "source": "tramp",
+      "target": "ross_road",
+      "key": 0
+    },
+    {
+      "relation": "turned_away_from",
+      "document_id": "doc_008",
+      "verified": false,
+      "source": "tramp",
+      "target": "hatherley_farm",
+      "key": 0
+    },
+    {
+      "relation": "asked_money_from",
+      "document_id": "doc_008",
+      "verified": false,
+      "source": "tramp",
+      "target": "mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "suspected_instead_of",
+      "document_id": "doc_008",
+      "verified": false,
+      "source": "tramp",
+      "target": "the_son",
+      "key": 0
+    },
+    {
+      "relation": "refused_money_to",
+      "document_id": "doc_008",
+      "verified": false,
+      "source": "mccarthy",
+      "target": "tramp",
+      "key": 0
+    },
+    {
+      "relation": "demands_marriage_to",
+      "document_id": "doc_010",
+      "verified": true,
+      "source": "mccarthy",
+      "target": "alice",
+      "key": 0
+    },
+    {
+      "relation": "not_the_same_person_as",
+      "document_id": "doc_008",
+      "verified": false,
+      "source": "the_son",
+      "target": "tramp",
+      "key": 0
+    },
+    {
+      "relation": "demanded_meeting_at",
+      "document_id": "doc_009",
+      "verified": true,
+      "source": "c_mcc",
+      "target": "recipient",
+      "key": 0
+    },
+    {
+      "relation": "blackmailed",
+      "document_id": "doc_009",
+      "verified": true,
+      "source": "c_mcc",
+      "target": "recipient",
+      "key": 1
+    },
+    {
+      "relation": "threatened_to_reveal_secrets",
+      "document_id": "doc_009",
+      "verified": true,
+      "source": "c_mcc",
+      "target": "recipient",
+      "key": 2
+    },
+    {
+      "relation": "to_be_married_to",
+      "document_id": "doc_009",
+      "verified": true,
+      "source": "the_boy",
+      "target": "the_girl",
+      "key": 0
+    },
+    {
+      "relation": "owns",
+      "document_id": "doc_011",
+      "verified": true,
+      "source": "alice_turner_father",
+      "target": "half_the_valley",
+      "key": 0
+    },
+    {
+      "relation": "owed_money_by",
+      "document_id": "doc_011",
+      "verified": true,
+      "source": "alice_turner_father",
+      "target": "mr_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "forgave_rent_to",
+      "document_id": "doc_011",
+      "verified": true,
+      "source": "alice_turner_father",
+      "target": "mr_mccarthy",
+      "key": 1
+    },
+    {
+      "relation": "let_farm_hatherley_to",
+      "document_id": "doc_011",
+      "verified": true,
+      "source": "alice_turner_father",
+      "target": "mr_mccarthy",
+      "key": 2
+    },
+    {
+      "relation": "landlord_to",
+      "document_id": "doc_011",
+      "verified": true,
+      "source": "alice_turner_father",
+      "target": "mr_mccarthy",
+      "key": 3
+    },
+    {
+      "relation": "called",
+      "document_id": "doc_011",
+      "verified": true,
+      "source": "mr_mccarthy",
+      "target": "alice_turner_father",
+      "key": 0
+    },
+    {
+      "relation": "farm",
+      "document_id": "doc_011",
+      "verified": true,
+      "source": "mr_mccarthy",
+      "target": "hatherley",
+      "key": 0
+    },
+    {
+      "relation": "treats",
+      "document_id": "doc_012",
+      "verified": true,
+      "source": "dr_willoughby_anstruther",
+      "target": "mr_john_turner",
+      "key": 0
+    },
+    {
+      "relation": "suffers_from",
+      "document_id": "doc_012",
+      "verified": true,
+      "source": "mr_john_turner",
+      "target": "brights_disease",
+      "key": 0
+    },
+    {
+      "relation": "symptoms_worsened_dueto",
+      "document_id": "doc_012",
+      "verified": true,
+      "source": "mr_john_turner",
+      "target": "brights_disease",
+      "key": 1
+    },
+    {
+      "relation": "has_swelling_in",
+      "document_id": "doc_012",
+      "verified": true,
+      "source": "mr_john_turner",
+      "target": "right_leg",
+      "key": 0
+    },
+    {
+      "relation": "has_stiffness_in",
+      "document_id": "doc_012",
+      "verified": true,
+      "source": "mr_john_turner",
+      "target": "hip",
+      "key": 0
+    },
+    {
+      "relation": "uses",
+      "document_id": "doc_012",
+      "verified": true,
+      "source": "mr_john_turner",
+      "target": "stout_stick",
+      "key": 0
+    },
+    {
+      "relation": "given_by",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "confidential_statement",
+      "target": "john_turner",
+      "key": 0
+    },
+    {
+      "relation": "taken_by",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "confidential_statement",
+      "target": "sherlock_holmes",
+      "key": 0
+    },
+    {
+      "relation": "retained_by",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "confidential_statement",
+      "target": "sherlock_holmes",
+      "key": 1
+    },
+    {
+      "relation": "taken_at",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "confidential_statement",
+      "target": "turner_estate_house",
+      "key": 0
+    },
+    {
+      "relation": "witnessed_by",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "confidential_statement",
+      "target": "dr_watson",
+      "key": 0
+    },
+    {
+      "relation": "not_disclosed_to",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "confidential_statement",
+      "target": "constabulary",
+      "key": 0
+    },
+    {
+      "relation": "refused_request",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "victim",
+      "target": "narrator",
+      "key": 0
+    },
+    {
+      "relation": "mocked",
+      "document_id": "doc_013",
+      "verified": true,
+      "source": "victim",
+      "target": "narrator",
+      "key": 1
+    },
+    {
+      "relation": "opines_inconsistent_with",
+      "document_id": "doc_014",
+      "verified": true,
+      "source": "gunsmith",
+      "target": "wounds",
+      "key": 0
+    },
+    {
+      "relation": "inconsistent_with_blow_from",
+      "document_id": "doc_014",
+      "verified": true,
+      "source": "wounds",
+      "target": "gun",
+      "key": 0
+    },
+    {
+      "relation": "describes",
+      "document_id": "doc_014",
+      "verified": true,
+      "source": "surgeons_report",
+      "target": "wounds",
+      "key": 0
+    },
+    {
+      "relation": "located_in",
+      "document_id": "doc_015",
+      "verified": true,
+      "source": "speaker",
+      "target": "village",
+      "key": 0
+    },
+    {
+      "relation": "works_near",
+      "document_id": "doc_015",
+      "verified": true,
+      "source": "speaker",
+      "target": "road",
+      "key": 0
+    },
+    {
+      "relation": "did_not_witness",
+      "document_id": "doc_015",
+      "verified": true,
+      "source": "speaker",
+      "target": "deceased",
+      "key": 0
+    },
+    {
+      "relation": "cross_referenced_to",
+      "document_id": "doc_016",
+      "verified": true,
+      "source": "torn_cloak_fragment",
+      "target": "physical_evidence_report_006",
+      "key": 0
+    },
+    {
+      "relation": "likely_owned_by",
+      "document_id": "doc_016",
+      "verified": true,
+      "source": "torn_cloak_fragment",
+      "target": "anonymous_wealthy_owner",
+      "key": 0
+    },
+    {
+      "relation": "does_not_match",
+      "document_id": "doc_016",
+      "verified": true,
+      "source": "torn_cloak_fragment",
+      "target": "charles_mccarthy",
+      "key": 0
+    },
+    {
+      "relation": "does_not_match",
+      "document_id": "doc_016",
+      "verified": true,
+      "source": "torn_cloak_fragment",
+      "target": "james_mccarthy",
+      "key": 0
+    }
+  ]
+}

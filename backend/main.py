@@ -195,7 +195,16 @@ def _load_graph_for_interrogation() -> nx.MultiDiGraph:
     with open(GRAPH_OUTPUT_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    return nx.node_link_graph(data, edges="links")
+    # ingestion.py writes with edges="edges", but older graph.json files on
+    # disk may still use the legacy "links" key. Detect instead of assuming.
+    if "edges" in data:
+        edges_key = "edges"
+    elif "links" in data:
+        edges_key = "links"
+    else:
+        return nx.MultiDiGraph()
+
+    return nx.node_link_graph(data, edges=edges_key)
 
 
 
